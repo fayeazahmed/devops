@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gatewayservice
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/devops?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password:
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  sql:
+    init:
+      mode: always
+  cloud:
+    gateway:
+      discovery.locator:
+        enabled: true
+        lowerCaseServiceId: true
+      routes:
+        - id: requestservice
+          uri: lb://requestservice
+          predicates:
+            - Path=/requestservice/**
+        - id: handlerservice
+          uri: lb://handlerservice
+          predicates:
+            - Path=/handlerservice/**
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

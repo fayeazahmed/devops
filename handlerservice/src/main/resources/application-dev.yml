@@ -1,0 +1,20 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: handlerservice
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: devops-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discoveryservice:8761/eureka/
+directoryPath: ./devops-files
