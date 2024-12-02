@@ -26,7 +26,7 @@ This will start all services inside *Docker Desktop*.
 ###  Prod
 Start all the services in prod (VirtualBox Ubuntu Live Server).
 
-Run *docker-compose.dev.yml*
+Run *docker-compose.prod.yml*
 
     docker compose -f docker-compose.prod.yml up -d
 This will start all services inside *Docker Desktop*.

@@ -27,4 +27,17 @@ public class KafkaService {
         }
     }
 
+    public boolean produceAndRespond(String message) {
+        logger.info("Producing message: " + message);
+
+        try {
+            kafkaTemplate.send(topic, message);
+            return true;
+        } catch (KafkaException | TimeoutException ex) {
+            logger.error("Error while producing message: " + ex.getMessage());
+            logger.error("Exiting operation");
+            return false;
+        }
+    }
+
 }
