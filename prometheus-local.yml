@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 2s
+
+scrape_configs:
+  - job_name: 'requestservice'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8001']
+        labels:
+          application: Request Service
+  - job_name: 'handlerservice'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8002']
+        labels:
+          application: Handler Service
+  - job_name: 'gatewayservice'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+        labels:
+          application: Gateway Service

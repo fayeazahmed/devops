@@ -18,6 +18,10 @@ public class RequestDataService {
     private APIClient apiClient;
     private final Logger logger = LoggerFactory.getLogger(RequestDataService.class);
 
+    /**
+     * Send api call to save request data.
+     * @param data Request data string
+     */
     public void save(String data) {
         RequestData requestData = new RequestData(0, data);
         try {
@@ -30,6 +34,10 @@ public class RequestDataService {
         logger.info("Saved data id: " + requestData.getId());
     }
 
+    /**
+     * Send api call to fetch saved request data.
+     * @return List of request data
+     */
     public List<RequestData> getAll() {
         try {
             ResponseEntity<List<RequestData>> response = apiClient.getAll();

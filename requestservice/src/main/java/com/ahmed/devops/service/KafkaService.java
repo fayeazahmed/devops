@@ -16,6 +16,10 @@ public class KafkaService {
     private final String topic = "requestdata";
     private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
 
+    /**
+     * Produce a message for a request data.
+     * @param message Request data string
+     */
     public void produce(String message) {
         logger.info("Producing message: " + message);
 
@@ -24,6 +28,24 @@ public class KafkaService {
         } catch (KafkaException | TimeoutException ex) {
             logger.error("Error while producing message: " + ex.getMessage());
             throw new InternalKafkaException();
+        }
+    }
+
+    /**
+     * Produce a message for a request data and respond.
+     * @param message Request data string
+     * @return True if message is sent successfully
+     */
+    public boolean produceAndRespond(String message) {
+        logger.info("Producing message: " + message);
+
+        try {
+            kafkaTemplate.send(topic, message);
+            return true;
+        } catch (KafkaException | TimeoutException ex) {
+            logger.error("Error while producing message: " + ex.getMessage());
+            logger.error("Exiting operation");
+            return false;
         }
     }
 
