@@ -9,14 +9,22 @@ import java.util.List;
 
 @Service
 public class RequestDataService {
-
     @Autowired
     private RequestDataRepository repository;
 
+    /**
+     * Get all request data from database.
+     * @return List of request data
+     */
     public List<RequestData> getAll() {
         return repository.findAll();
     }
 
+    /**
+     * Save a new request data into database.
+     * @param data Request data
+     * @return Saved request data
+     */
     public RequestData save(RequestData data) {
         return repository.save(data);
     }

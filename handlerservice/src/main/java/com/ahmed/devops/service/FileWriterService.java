@@ -17,6 +17,10 @@ public class FileWriterService {
     @Value("${directoryPath}")
     private String directoryPath;
 
+    /**
+     * Save a request data in a text file.
+     * @param requestData Request data string
+     */
     public void writeToFile(String requestData) {
         String filePath = directoryPath + File.separator + System.currentTimeMillis() + FileWriterConfig.DEFAULT_FILE_EXTENSION;
         File file = new File(filePath);

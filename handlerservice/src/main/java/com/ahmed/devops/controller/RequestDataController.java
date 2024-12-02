@@ -19,6 +19,10 @@ public class RequestDataController {
     private RequestDataService requestDataService;
     private final Logger logger = LoggerFactory.getLogger(RequestDataController.class);
 
+    /**
+     * Handle request for all saved request data.
+     * @return List of request data
+     */
     @GetMapping()
     public ResponseEntity<List<RequestData>> getAll() {
         logger.info("Handling data request");

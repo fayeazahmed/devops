@@ -16,6 +16,10 @@ public class KafkaService {
     private final String topic = "requestdata";
     private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
 
+    /**
+     * Produce a message for a request data.
+     * @param message Request data string
+     */
     public void produce(String message) {
         logger.info("Producing message: " + message);
 
@@ -27,6 +31,11 @@ public class KafkaService {
         }
     }
 
+    /**
+     * Produce a message for a request data and respond.
+     * @param message Request data string
+     * @return True if message is sent successfully
+     */
     public boolean produceAndRespond(String message) {
         logger.info("Producing message: " + message);
 
