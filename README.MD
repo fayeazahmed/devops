@@ -8,7 +8,7 @@ Run *docker-compose.local.yml*
     docker compose -f docker-compose.local.yml up -d
 This will start *Kafka* on :9092 in localhost.
 
-Start *MySql* database locally, then start the micro services with *start.bat/start.sh*
+Start *MySql* database locally, then start the microservices with *start.bat/start.sh*
 
     mvn -f discoveryservice/pom.xml spring-boot:run -Dspring-boot.run.profiles=local
     mvn -f gatewayservice/pom.xml spring-boot:run -Dspring-boot.run.profiles=local
