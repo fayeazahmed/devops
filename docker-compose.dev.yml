@@ -46,6 +46,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "9001:9001"
     restart: on-failure
@@ -62,6 +63,7 @@ services:
       - E:/DEV/DEVOPS/devops-files-dev:/app/devops-files
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "9002:9002"
     restart: on-failure
@@ -76,6 +78,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "8080:8080"
     restart: on-failure
@@ -101,5 +104,12 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
 volumes:
   db_data:
