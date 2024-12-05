@@ -50,6 +50,7 @@ services:
       - /home/ahmed/devops/logs/requestservice:/app/logs
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "9001:9001"
     restart: on-failure
@@ -67,6 +68,7 @@ services:
       - /home/ahmed/devops/files:/app/devops-files
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "9002:9002"
     restart: on-failure
@@ -83,6 +85,7 @@ services:
       - /home/ahmed/devops/logs/gatewayservice:/app/logs
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
     ports:
       - "8080:8080"
     restart: on-failure
@@ -96,7 +99,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus-dev.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-prod.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana
@@ -108,5 +111,12 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
 volumes:
   db_data:

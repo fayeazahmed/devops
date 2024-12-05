@@ -50,7 +50,7 @@ public class RequestDataService {
     public int generate(int numberOfData) {
         for(int i = 0; i < numberOfData; i++) {
             if(!kafkaService.produceAndRespond("Generated request data " + (i + 1))) {
-                return ++i;
+                return i;
             }
         }
 
