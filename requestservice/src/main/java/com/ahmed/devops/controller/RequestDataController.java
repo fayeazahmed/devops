@@ -1,7 +1,6 @@
 package com.ahmed.devops.controller;
 
 import com.ahmed.devops.config.Responses;
-import com.ahmed.devops.exception.InternalKafkaException;
 import com.ahmed.devops.model.RequestData;
 import com.ahmed.devops.service.RequestDataService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,14 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("request_data")
 public class RequestDataController {
-    @Autowired
-    private RequestDataService requestDataService;
+    private final RequestDataService requestDataService;
     private final Logger logger = LoggerFactory.getLogger(RequestDataController.class);
+
+    public RequestDataController(RequestDataService requestDataService) {
+        this.requestDataService = requestDataService;
+    }
 
     @PostMapping()
     @Tag(name = "Save data", description = "Send a message to kafka to save request data")
     public ResponseEntity<String> save(@RequestBody String data) {
-        logger.info("Received request data: " + data);
+        logger.info("Received request data: {}", data);
 
         requestDataService.save(data);
 
@@ -41,7 +43,7 @@ public class RequestDataController {
     @PostMapping("/generate")
     @Tag(name = "Generate data", description = "Generate specific number of request data")
     public ResponseEntity<String> generate(@RequestBody int numberOfData) {
-        logger.info("Received data generation request: " + numberOfData);
+        logger.info("Received data generation request: {}", numberOfData);
 
         int generatedDataCount = requestDataService.generate(numberOfData);
 

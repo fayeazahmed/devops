@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaService {
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
-    private final String topic = "requestdata";
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final static String topic = "requestdata";
     private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
+
+    public KafkaService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     /**
      * Produce a message for a request data.
@@ -26,7 +29,7 @@ public class KafkaService {
         try {
             kafkaTemplate.send(topic, message);
         } catch (KafkaException | TimeoutException ex) {
-            logger.error("Error while producing message: " + ex.getMessage());
+            logger.error("Error while producing message: {}", ex.getMessage());
             throw new InternalKafkaException();
         }
     }
@@ -43,7 +46,7 @@ public class KafkaService {
             kafkaTemplate.send(topic, message);
             return true;
         } catch (KafkaException | TimeoutException ex) {
-            logger.error("Error while producing message: " + ex.getMessage());
+            logger.error("Error while producing message: {}", ex.getMessage());
             logger.error("Exiting operation");
             return false;
         }

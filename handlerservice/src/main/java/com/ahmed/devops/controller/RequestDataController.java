@@ -15,9 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("request_data")
 public class RequestDataController {
-    @Autowired
-    private RequestDataService requestDataService;
+    private final RequestDataService requestDataService;
     private final Logger logger = LoggerFactory.getLogger(RequestDataController.class);
+
+    public RequestDataController(RequestDataService requestDataService) {
+        this.requestDataService = requestDataService;
+    }
 
     /**
      * Handle request for all saved request data.

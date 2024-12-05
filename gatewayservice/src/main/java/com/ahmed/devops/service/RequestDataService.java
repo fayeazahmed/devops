@@ -9,8 +9,11 @@ import java.util.List;
 
 @Service
 public class RequestDataService {
-    @Autowired
-    private RequestDataRepository repository;
+    private final RequestDataRepository repository;
+
+    public RequestDataService(RequestDataRepository repository) {
+        this.repository = repository;
+    }
 
     /**
      * Get all request data from database.

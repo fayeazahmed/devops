@@ -11,8 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/data/")
 public class RequestDataController {
-    @Autowired
-    private RequestDataService service;
+    private final RequestDataService service;
+
+    public RequestDataController(RequestDataService service) {
+        this.service = service;
+    }
 
     /**
      * Get all saved request data.

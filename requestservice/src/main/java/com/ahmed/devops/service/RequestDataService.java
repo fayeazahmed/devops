@@ -14,11 +14,14 @@ import java.util.List;
 
 @Service
 public class RequestDataService {
-    @Autowired
-    private APIClient apiClient;
-    @Autowired
-    private KafkaService kafkaService;
+    private final APIClient apiClient;
+    private final KafkaService kafkaService;
     private final Logger logger = LoggerFactory.getLogger(RequestDataService.class);
+
+    public RequestDataService(APIClient apiClient, KafkaService kafkaService) {
+        this.apiClient = apiClient;
+        this.kafkaService = kafkaService;
+    }
 
     /**
      * Produce a message to kafka for saving request data.
@@ -37,7 +40,7 @@ public class RequestDataService {
             ResponseEntity<List<RequestData>> response = apiClient.getAll();
             return response.getBody();
         } catch (FeignException e) {
-            logger.error("Error while fetching request data: " + e.getMessage());
+            logger.error("Error while fetching request data: {}", e.getMessage());
             return new ArrayList<>();
         }
     }

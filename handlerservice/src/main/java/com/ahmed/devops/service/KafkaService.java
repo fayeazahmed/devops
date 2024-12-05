@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaService {
-    @Autowired
-    RequestDataService requestDataService;
-    @Autowired
-    FileWriterService fileWriterService;
-    private final String consumerGroupId = "devops-group";
-    private final String topic = "requestdata";
+    private final RequestDataService requestDataService;
+    private final FileWriterService fileWriterService;
+    private final static String consumerGroupId = "devops-group";
+    private final static String topic = "requestdata";
     private final Logger logger = LoggerFactory.getLogger(KafkaService.class);
+
+    public KafkaService(RequestDataService requestDataService, FileWriterService fileWriterService) {
+        this.requestDataService = requestDataService;
+        this.fileWriterService = fileWriterService;
+    }
 
     @KafkaListener(topics = topic, groupId = consumerGroupId)
     public void consume(String message) {
-        logger.info("Received message: " + message);
+        logger.info("Received message: {}", message);
         requestDataService.save(message);
         fileWriterService.writeToFile(message);
     }

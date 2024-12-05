@@ -14,9 +14,12 @@ import java.util.List;
 
 @Service
 public class RequestDataService {
-    @Autowired
-    private APIClient apiClient;
+    private final APIClient apiClient;
     private final Logger logger = LoggerFactory.getLogger(RequestDataService.class);
+
+    public RequestDataService(APIClient apiClient) {
+        this.apiClient = apiClient;
+    }
 
     /**
      * Send api call to save request data.
@@ -27,11 +30,12 @@ public class RequestDataService {
         try {
             ResponseEntity<RequestData> response = apiClient.save(requestData);
             requestData = response.getBody();
+            if(requestData == null) return;
         } catch (FeignException e) {
-            logger.error("Error while saving request data: " + e.getMessage());
+            logger.error("Error while saving request data: {}", e.getMessage());
             return;
         }
-        logger.info("Saved data id: " + requestData.getId());
+        logger.info("Saved data id: {}", requestData.getId());
     }
 
     /**
@@ -43,7 +47,7 @@ public class RequestDataService {
             ResponseEntity<List<RequestData>> response = apiClient.getAll();
             return response.getBody();
         } catch (FeignException e) {
-            logger.error("Error while fetching request data: " + e.getMessage());
+            logger.error("Error while fetching request data: {}", e.getMessage());
             return new ArrayList<>();
         }
     }
