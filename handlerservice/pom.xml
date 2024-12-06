@@ -16,6 +16,10 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<sonar.projectKey>handlerservice</sonar.projectKey>
+		<sonar.projectName>handlerservice</sonar.projectName>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.login>sqp_b8a62eff42f10c175c0c42e831dcb3701f8452c6</sonar.login>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,6 +62,11 @@
 			<artifactId>loki-logback-appender</artifactId>
 			<version>1.5.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.11.0.3922</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -86,6 +95,11 @@
 					<source>1${java.version}7</source>
 					<target>${java.version}</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
 			</plugin>
 		</plugins>
 	</build>

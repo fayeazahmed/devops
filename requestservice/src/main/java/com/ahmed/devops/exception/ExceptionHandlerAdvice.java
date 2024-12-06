@@ -15,13 +15,13 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(value = { InternalKafkaException.class })
     public ResponseEntity<String> kafkaException(InternalKafkaException ex) {
-        logger.error("InternalKafkaException: " + ex.getMessage());
+        logger.error("InternalKafkaException: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ex.getMessage());
     }
 
     @ExceptionHandler(value = { HttpMessageNotReadableException.class })
     public ResponseEntity<String> badRequestException(HttpMessageNotReadableException ex) {
-        logger.error("HttpMessageNotReadableException: " + ex.getMessage());
+        logger.error("HttpMessageNotReadableException: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Responses.BAD_REQUEST_RESPONSE);
     }
 }

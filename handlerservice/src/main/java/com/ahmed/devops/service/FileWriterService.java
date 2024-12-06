@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 @Service
 public class FileWriterService {
@@ -27,15 +26,15 @@ public class FileWriterService {
         try {
             if(!file.exists() && !file.createNewFile()) return;
         } catch (IOException e) {
-            logger.error("Error while creating file for request data: " + e.getMessage());
+            logger.error("Error while creating file for request data: {}", e.getMessage());
             return;
         }
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             fileWriter.write(requestData);
-            logger.info("File written successfully: " + filePath);
+            logger.info("File written successfully: {}", filePath);
         } catch (IOException e) {
-            logger.error("Error while writing request data: " + e.getMessage());
+            logger.error("Error while writing request data: {}", e.getMessage());
         }
     }
 }
