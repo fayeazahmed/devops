@@ -4,7 +4,6 @@ import com.ahmed.devops.exception.InternalKafkaException;
 import org.apache.kafka.common.errors.TimeoutException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class KafkaService {
      * @param message Request data string
      */
     public void produce(String message) {
-        logger.info("Producing message: " + message);
+        logger.info("Producing message: {}", message);
 
         try {
             kafkaTemplate.send(topic, message);
@@ -40,7 +39,7 @@ public class KafkaService {
      * @return True if message is sent successfully
      */
     public boolean produceAndRespond(String message) {
-        logger.info("Producing message: " + message);
+        logger.info("Producing message: {}", message);
 
         try {
             kafkaTemplate.send(topic, message);

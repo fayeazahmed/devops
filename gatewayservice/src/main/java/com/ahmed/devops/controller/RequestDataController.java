@@ -1,8 +1,7 @@
 package com.ahmed.devops.controller;
 
-import com.ahmed.devops.service.RequestDataService;
 import com.ahmed.devops.model.RequestData;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ahmed.devops.service.RequestDataService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

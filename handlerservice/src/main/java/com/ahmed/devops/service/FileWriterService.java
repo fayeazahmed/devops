@@ -32,7 +32,7 @@ public class FileWriterService {
 
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             fileWriter.write(requestData);
-            logger.info("File written successfully: " + filePath);
+            logger.info("File written successfully: {}", filePath);
         } catch (IOException e) {
             logger.error("Error while writing request data: {}", e.getMessage());
         }
